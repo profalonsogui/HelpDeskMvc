@@ -1,0 +1,31 @@
+@model List<HelpDeskMvc.Models.Chamado>
+
+@{
+    ViewData["Title"] = "Chamados";
+}
+
+<div class="container mt-4">
+    <h1>Chamados</h1>
+
+    <hr />
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var chamado in Model)
+            {
+                <tr>
+                    <td>@chamado.Titulo</td>
+                    <td>@chamado.Descricao</td>
+                    <td>@chamado.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
