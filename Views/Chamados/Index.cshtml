@@ -1,0 +1,8 @@
+@model List<HelpDeskMvc.Models.Chamado>
+
+<h1>Chamados</h1>
+
+@foreach (var chamado in Model)
+{
+    <p>@chamado.Titulo</p>
+}
