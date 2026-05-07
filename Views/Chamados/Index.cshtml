@@ -1,8 +1,43 @@
 @model List<HelpDeskMvc.Models.Chamado>
 
-<h1>Chamados</h1>
-
-@foreach (var chamado in Model)
-{
-    <p>@chamado.Titulo</p>
+@{
+    ViewData["Title"] = "Chamados";
 }
+
+<div class="container mt-4">
+    <h1>Chamados</h1>
+
+    <hr />
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Descrição</th>
+                <th>Status</th>
+                <th>Data Abertura</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var chamado in Model)
+            {
+                <tr>
+                    <td>@chamado.Titulo</td>
+                    <td>@chamado.Descricao</td>
+                    <td>@chamado.Status</td>
+                    <td>@chamado.DataAbertura</td>
+                    <td>
+                        @* Este link vai gerar uma URL tipo: /Chamados/Detalhes/1 *@
+                    <a asp-controller="Chamados"
+                           asp-action="Detalhes"
+                           asp-route-id="@chamado.Id"
+                           class="btn btn-primary btn-sm">
+                        Ver Detalhes
+                    </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
