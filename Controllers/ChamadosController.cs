@@ -24,10 +24,55 @@ namespace HelpDeskMvc.Controllers
                     Titulo = "Internet lenta",
                     Descricao = "A conexão está muito lenta no laboratório.",
                     Status = "Em andamento"
-                }
+                },
+                new Chamado
+                {
+                    Id = 3,
+                    Titulo = "Internet lenta",
+                    Descricao = "A conexão está muito lenta no laboratório.",
+                    Status = "Em andamento"
+                },
             };
             
             return View(chamados);
         }
+
+     public IActionResult Detalhes(int id)
+        {
+            var chamados = new List<Chamado>
+            {
+                new Chamado
+                {
+                    Id = 1,
+                    Titulo = "Computador não liga",
+                    Descricao = "O computador da sala 2 não está ligando.",
+                    Status = "Aberto"
+                },
+                new Chamado
+                {
+                    Id = 2,
+                    Titulo = "Internet lenta",
+                    Descricao = "A conexão está muito lenta no laboratório.",
+                    Status = "Em andamento"
+                },
+                new Chamado
+                {
+                    Id = 3,
+                    Titulo = "Internet lenta",
+                    Descricao = "A conexão está muito lenta no laboratório.",
+                    Status = "Em andamento"
+                },
+            };
+            // busca o chamado pelo ID
+            var chamadoRecuperado = chamados.FirstOrDefault(c => c.Id == id);
+            // para encontrar o chamado pelo ID
+
+            // SENÃO ENCONTRAR O ID, RETORNA COM ERRO 404
+            if(chamadoRecuperado == null)
+            {
+                return NotFound();
+            }
+            return View(chamadoRecuperado);
+        }   
     }
 }
