@@ -1,0 +1,17 @@
+@model HelpDeskMvc.Models.Chamado
+
+@{
+    ViewData["Title"] = "Detalhes";
+}
+
+<h1>Detalhes do Chamado</h1>
+
+<hr />
+
+<p><strong>Título:</strong> @Model.Titulo</p>
+
+<p><strong>Descrição:</strong> @Model.Descricao</p>
+
+<p><strong>Status:</strong> @Model.Status</p>
+
+<a class="btn btn-primary" asp-controller="Chamados" asp-action="Index">Voltar</a>

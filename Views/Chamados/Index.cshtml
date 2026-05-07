@@ -15,6 +15,7 @@
                 <th>Título</th>
                 <th>Descrição</th>
                 <th>Status</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,11 @@
                     <td>@chamado.Titulo</td>
                     <td>@chamado.Descricao</td>
                     <td>@chamado.Status</td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Chamados" asp-action="Detalhes" asp-route-id="@chamado.Id">
+                        Ver Detalhes
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>
