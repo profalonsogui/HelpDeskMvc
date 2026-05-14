@@ -15,6 +15,7 @@
                 <th>Título</th>
                 <th>Descrição</th>
                 <th>Status</th>
+                <th>Data Abertura</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -25,10 +26,15 @@
                     <td>@chamado.Titulo</td>
                     <td>@chamado.Descricao</td>
                     <td>@chamado.Status</td>
+                    <td>@chamado.DataAbertura</td>
                     <td>
-                        <a class="btn btn-primary" asp-controller="Chamados" asp-action="Detalhes" asp-route-id="@chamado.Id">
+                        @* Este link vai gerar uma URL tipo: /Chamados/Detalhes/1 *@
+                    <a asp-controller="Chamados"
+                           asp-action="Detalhes"
+                           asp-route-id="@chamado.Id"
+                           class="btn btn-primary btn-sm">
                         Ver Detalhes
-                        </a>
+                    </a>
                     </td>
                 </tr>
             }
