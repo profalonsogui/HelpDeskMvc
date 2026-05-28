@@ -1,8 +1,191 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Dashboard";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+
+    <!-- HERO -->
+    <div class="p-5 mb-4 bg-light rounded-4 border shadow-sm">
+
+        <div class="container-fluid py-2">
+
+            <h1 class="display-6 fw-bold mb-3">
+                Bem-vindo ao HelpDeskMVC
+            </h1>
+
+            <p class="col-md-8 fs-5 text-muted">
+                Sistema simples de gerenciamento de chamados desenvolvido com
+                ASP.NET Core MVC para fins educacionais.
+            </p>
+
+            <div class="d-flex gap-2 mt-4">
+
+                <a asp-controller="Chamados"
+                   asp-action="Index"
+                   class="btn btn-primary btn-lg px-4">
+                    Ver Chamados
+                </a>
+
+                <a asp-controller="Chamados"
+                   asp-action="Create"
+                   class="btn btn-outline-primary btn-lg px-4">
+                    Abrir Novo Chamado
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- CARDS -->
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+
+                    <small class="text-muted">
+                        Total de Chamados
+                    </small>
+
+                    <h2 class="fw-bold mt-2">
+                        24
+                    </h2>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+
+                    <small class="text-muted">
+                        Chamados Abertos
+                    </small>
+
+                    <h2 class="fw-bold text-success mt-2">
+                        12
+                    </h2>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+
+                    <small class="text-muted">
+                        Em Andamento
+                    </small>
+
+                    <h2 class="fw-bold text-warning mt-2">
+                        7
+                    </h2>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+
+                    <small class="text-muted">
+                        Resolvidos
+                    </small>
+
+                    <h2 class="fw-bold text-primary mt-2">
+                        5
+                    </h2>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ÚLTIMOS CHAMADOS -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-header bg-white border-0 pt-4">
+            <h5 class="fw-bold mb-0">
+                Últimos Chamados
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="list-group list-group-flush">
+
+                <div class="list-group-item px-0">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="fw-semibold">
+                                Computador não liga
+                            </div>
+
+                            <small class="text-muted">
+                                Aberto por João Silva
+                            </small>
+                        </div>
+
+                        <span class="badge bg-success-subtle text-success align-self-start">
+                            Aberto
+                        </span>
+                    </div>
+                </div>
+
+                <div class="list-group-item px-0">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="fw-semibold">
+                                Problema na impressora
+                            </div>
+
+                            <small class="text-muted">
+                                Aberto por Maria Oliveira
+                            </small>
+                        </div>
+
+                        <span class="badge bg-warning-subtle text-warning align-self-start">
+                            Em andamento
+                        </span>
+                    </div>
+                </div>
+
+                <div class="list-group-item px-0">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <div class="fw-semibold">
+                                Erro no sistema
+                            </div>
+
+                            <small class="text-muted">
+                                Aberto por Carlos Souza
+                            </small>
+                        </div>
+
+                        <span class="badge bg-primary-subtle text-primary align-self-start">
+                            Resolvido
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
