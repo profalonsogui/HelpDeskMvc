@@ -29,6 +29,7 @@ namespace HelpDeskMvc.Controllers
 
         public IActionResult Detalhes(int id)
         {
+            // Recupera o chamado pelo ID da lista em memória.
             var chamadoRecuperado = chamados.FirstOrDefault(c => c.Id == id);
 
             if (chamadoRecuperado == null)
