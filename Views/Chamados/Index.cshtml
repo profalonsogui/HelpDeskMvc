@@ -4,40 +4,137 @@
     ViewData["Title"] = "Chamados";
 }
 
-<div class="container mt-4">
-    <h1>Chamados</h1>
+<div class="container mt-5">
 
-    <hr />
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold mb-1">Chamados</h1>
+            <p class="text-muted mb-0">
+                Visualize e gerencie os chamados registrados no sistema.
+            </p>
+        </div>
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Título</th>
-                <th>Descrição</th>
-                <th>Status</th>
-                <th>Data Abertura</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var chamado in Model)
-            {
-                <tr>
-                    <td>@chamado.Titulo</td>
-                    <td>@chamado.Descricao</td>
-                    <td>@chamado.Status</td>
-                    <td>@chamado.DataAbertura</td>
-                    <td>
-                        @* Este link vai gerar uma URL tipo: /Chamados/Detalhes/1 *@
-                    <a asp-controller="Chamados"
-                           asp-action="Detalhes"
-                           asp-route-id="@chamado.Id"
-                           class="btn btn-primary btn-sm">
-                        Ver Detalhes
-                    </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+        <a asp-controller="Chamados"
+           asp-action="Create"
+           class="btn btn-primary px-4 py-2 shadow-sm">
+            + Abrir Novo Chamado
+        </a>
+    </div>
+
+    <!-- FILTROS -->
+    <div class="card border-0 shadow-sm mb-4">
+        <div class="card-body">
+
+            <div class="row g-3">
+
+                <div class="col-md-8">
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Buscar chamados..." />
+                </div>
+
+                <div class="col-md-4">
+                    <select class="form-select">
+                        <option>Filtrar por status</option>
+                        <option>Aberto</option>
+                        <option>Em andamento</option>
+                        <option>Resolvido</option>
+                    </select>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TABELA -->
+    <div class="card border-0 shadow-sm">
+
+        <div class="table-responsive">
+
+            <table class="table align-middle mb-0">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Título</th>
+                        <th>Status</th>
+                        <th>Data Abertura</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @foreach (var chamado in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                <span class="badge bg-light text-primary border">
+                                    #@chamado.Id
+                                </span>
+                            </td>
+
+                            <td>
+                                <div class="fw-semibold">
+                                    @chamado.Titulo
+                                </div>
+
+                                <small class="text-muted">
+                                    @chamado.Descricao
+                                </small>
+                            </td>
+
+                            <td>
+
+                                @if (chamado.Status == "Aberto")
+                                {
+                                    <span class="badge bg-success-subtle text-success">
+                                        ● Aberto
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">
+                                        @chamado.Status
+                                    </span>
+                                }
+
+                            </td>
+
+                            <td>
+                                @chamado.DataAbertura
+                            </td>
+
+                            <td class="text-center">
+
+                                <a asp-controller="Chamados"
+                                   asp-action="Detalhes"
+                                   asp-route-id="@chamado.Id"
+                                   class="btn btn-outline-primary btn-sm">
+                                    Ver Detalhes
+                                </a>
+
+                            </td>
+
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="card-footer bg-white border-0">
+            <small class="text-muted">
+                Total de chamados: @Model.Count
+            </small>
+        </div>
+
+    </div>
+
 </div>
