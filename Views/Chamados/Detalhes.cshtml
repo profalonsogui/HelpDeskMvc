@@ -1,17 +1,33 @@
-@model HelpDeskMvc.Models.Chamado
+@model HelpDeskMvc.Models.Chamado;
 
 @{
-    ViewData["Title"] = "Detalhes";
+    ViewData["Title"] = " Detalhes do Chamados";
 }
 
-<h1>Detalhes do Chamado</h1>
+<div class="container mt-4">
+    <h2>Detalhes do Chamado @Model.Id</h2>
+    <hr/>
 
-<hr />
-
-<p><strong>Título:</strong> @Model.Titulo</p>
-
-<p><strong>Descrição:</strong> @Model.Descricao</p>
-
-<p><strong>Status:</strong> @Model.Status</p>
-
-<a class="btn btn-primary" asp-controller="Chamados" asp-action="Index">Voltar</a>
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            Informações do Ticket
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@Model.Titulo</h5>
+            <p class="card-text">
+                <strong>Descrição:</strong></br>
+                @Model.Descricao
+            </p>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                <Strong>Status:</Strong>@Model.Status </br>
+                <Strong>Data Abertura:</Strong> @Model.DataAbertura.ToString("dd/MM/yyyy HH:mm")</br>
+                <Strong>Data Fechamento:</Strong>@(Model.DataFechamento.HasValue
+                ? Model.DataFechamento.Value.ToString("dd/MM/yyyy")
+                : "Em aberto")
+            </p>
+        </div>
+    </div>
+    <a href="@Url.Action("Index", "Chamados")" class="btn btn-secondary mt-3">Voltar para Lista</a>
+</div>
