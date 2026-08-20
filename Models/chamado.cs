@@ -1,4 +1,4 @@
-namespace HelpDeskMvc.Models
+/*namespace HelpDeskMvc.Models
 {
     public class Chamado
     {
@@ -10,3 +10,4 @@ namespace HelpDeskMvc.Models
         public DateTime? DataFechamento { get; set; }
     }
 }
+*/

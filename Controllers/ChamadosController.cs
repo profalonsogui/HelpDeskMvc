@@ -17,6 +17,7 @@ namespace HelpDeskMvc.Controllers
                 DataAbertura = DateTime.Now,
                 DataFechamento = null
             },
+            
         };
 
         // Controle do ID automático
