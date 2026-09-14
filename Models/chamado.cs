@@ -15,7 +15,7 @@ namespace HelpDeskMvc.Models
         [Required(ErrorMessage = "A descrição é obrigatória.")]
         [Display(Name = "Descrição")]
         public string? Descricao { get; set; }
-        public string? Status { get; set; } = "Aberto";
+        public ChamadoStatus Status { get; set; } = ChamadoStatus.Aberto;
         public DateTime DataAbertura { get; set; } = DateTime.Now;
         public DateTime? DataFechamento { get; set; }
     }

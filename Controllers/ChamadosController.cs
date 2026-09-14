@@ -76,7 +76,7 @@ namespace HelpDeskMvc.Controllers
             chamado.Id = 0;
 
             // Campos controlados pelo servidor, não pelo usuário.
-            chamado.Status = "Aberto";
+            chamado.Status = ChamadoStatus.Aberto;
             chamado.DataAbertura = DateTime.Now;
             chamado.DataFechamento = null;
 
@@ -89,6 +89,125 @@ namespace HelpDeskMvc.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        // POST: /Chamados/IniciarAtendimento/5
+        // Transição permitida: Aberto -> EmAndamento.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> IniciarAtendimento(int id)
+        {
+            var chamado = await _context.Chamados.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (chamado == null)
+            {
+                return NotFound();
+            }
+
+            if (chamado.Status != ChamadoStatus.Aberto)
+            {
+                TempData["MensagemTipo"] = "danger";
+                TempData["Mensagem"] = "Só é possível iniciar o atendimento de um chamado Aberto.";
+                return RedirectToAction(nameof(Detalhes), new { id });
+            }
+
+            chamado.Status = ChamadoStatus.EmAndamento;
+
+            await _context.SaveChangesAsync();
+
+            TempData["MensagemTipo"] = "success";
+            TempData["Mensagem"] = "Atendimento iniciado com sucesso.";
+            return RedirectToAction(nameof(Detalhes), new { id });
+        }
+
+        // POST: /Chamados/Resolver/5
+        // Transição permitida: EmAndamento -> Resolvido.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Resolver(int id)
+        {
+            var chamado = await _context.Chamados.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (chamado == null)
+            {
+                return NotFound();
+            }
+
+            if (chamado.Status != ChamadoStatus.EmAndamento)
+            {
+                TempData["MensagemTipo"] = "danger";
+                TempData["Mensagem"] = "Só é possível resolver um chamado que esteja Em Andamento.";
+                return RedirectToAction(nameof(Detalhes), new { id });
+            }
+
+            chamado.Status = ChamadoStatus.Resolvido;
+            chamado.DataFechamento = DateTime.Now;
+
+            await _context.SaveChangesAsync();
+
+            TempData["MensagemTipo"] = "success";
+            TempData["Mensagem"] = "Chamado resolvido com sucesso.";
+            return RedirectToAction(nameof(Detalhes), new { id });
+        }
+
+        // POST: /Chamados/Reabrir/5
+        // Transição permitida: Resolvido -> EmAndamento.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Reabrir(int id)
+        {
+            var chamado = await _context.Chamados.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (chamado == null)
+            {
+                return NotFound();
+            }
+
+            if (chamado.Status != ChamadoStatus.Resolvido)
+            {
+                TempData["MensagemTipo"] = "danger";
+                TempData["Mensagem"] = "Só é possível reabrir um chamado que esteja Resolvido.";
+                return RedirectToAction(nameof(Detalhes), new { id });
+            }
+
+            chamado.Status = ChamadoStatus.EmAndamento;
+            chamado.DataFechamento = null;
+
+            await _context.SaveChangesAsync();
+
+            TempData["MensagemTipo"] = "success";
+            TempData["Mensagem"] = "Chamado reaberto com sucesso.";
+            return RedirectToAction(nameof(Detalhes), new { id });
+        }
+
+        // POST: /Chamados/Cancelar/5
+        // Transições permitidas: Aberto -> Cancelado ou EmAndamento -> Cancelado.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Cancelar(int id)
+        {
+            var chamado = await _context.Chamados.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (chamado == null)
+            {
+                return NotFound();
+            }
+
+            if (chamado.Status != ChamadoStatus.Aberto && chamado.Status != ChamadoStatus.EmAndamento)
+            {
+                TempData["MensagemTipo"] = "danger";
+                TempData["Mensagem"] = "Este chamado não pode ser cancelado no status atual.";
+                return RedirectToAction(nameof(Detalhes), new { id });
+            }
+
+            // O cancelamento não remove o registro do banco, apenas altera o status.
+            chamado.Status = ChamadoStatus.Cancelado;
+
+            await _context.SaveChangesAsync();
+
+            TempData["MensagemTipo"] = "success";
+            TempData["Mensagem"] = "Chamado cancelado.";
+            return RedirectToAction(nameof(Detalhes), new { id });
         }
     }
 }

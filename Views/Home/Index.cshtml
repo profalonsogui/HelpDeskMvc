@@ -153,10 +153,20 @@
                         // Escolhe as classes do badge conforme o status.
                         var badge = chamado.Status switch
                         {
-                            "Aberto" => "bg-success-subtle text-success",
-                            "Em andamento" => "bg-warning-subtle text-warning",
-                            "Resolvido" => "bg-primary-subtle text-primary",
+                            ChamadoStatus.Aberto => "bg-success-subtle text-success",
+                            ChamadoStatus.EmAndamento => "bg-warning-subtle text-warning",
+                            ChamadoStatus.Resolvido => "bg-primary-subtle text-primary",
                             _ => "bg-secondary-subtle text-secondary"
+                        };
+
+                        // Rótulo amigável, sem alterar o valor interno do enum.
+                        var statusLabel = chamado.Status switch
+                        {
+                            ChamadoStatus.Aberto => "Aberto",
+                            ChamadoStatus.EmAndamento => "Em andamento",
+                            ChamadoStatus.Resolvido => "Resolvido",
+                            ChamadoStatus.Cancelado => "Cancelado",
+                            _ => chamado.Status.ToString()
                         };
 
                         <a asp-controller="Chamados"
@@ -177,7 +187,7 @@
                                 </div>
 
                                 <span class="badge @badge align-self-start">
-                                    @(chamado.Status ?? "Sem status")
+                                    @statusLabel
                                 </span>
 
                             </div>

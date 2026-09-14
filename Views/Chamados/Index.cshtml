@@ -2,6 +2,15 @@
 
 @{
     ViewData["Title"] = "Chamados";
+
+    static string StatusLabel(ChamadoStatus status) => status switch
+    {
+        ChamadoStatus.Aberto => "Aberto",
+        ChamadoStatus.EmAndamento => "Em andamento",
+        ChamadoStatus.Resolvido => "Resolvido",
+        ChamadoStatus.Cancelado => "Cancelado",
+        _ => status.ToString()
+    };
 }
 
 <div class="container mt-5">
@@ -89,7 +98,7 @@
 
                             <td>
 
-                                @if (chamado.Status == "Aberto")
+                                @if (chamado.Status == ChamadoStatus.Aberto)
                                 {
                                     <span class="badge bg-success-subtle text-success">
                                         ● Aberto
@@ -98,7 +107,7 @@
                                 else
                                 {
                                     <span class="badge bg-secondary">
-                                        @chamado.Status
+                                        @StatusLabel(chamado.Status)
                                     </span>
                                 }
 

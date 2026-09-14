@@ -31,13 +31,13 @@ namespace HelpDeskMvc.Controllers
 
                 // O predicado dentro do CountAsync vira o WHERE do SQL.
                 Abertos = await _context.Chamados
-                    .CountAsync(c => c.Status == "Aberto"),
+                    .CountAsync(c => c.Status == ChamadoStatus.Aberto),
 
                 EmAndamento = await _context.Chamados
-                    .CountAsync(c => c.Status == "Em andamento"),
+                    .CountAsync(c => c.Status == ChamadoStatus.EmAndamento),
 
                 Resolvidos = await _context.Chamados
-                    .CountAsync(c => c.Status == "Resolvido"),
+                    .CountAsync(c => c.Status == ChamadoStatus.Resolvido),
 
                 // Take(3) vira LIMIT 3 no SQLite. Só três linhas saem do banco,
                 // não a tabela inteira.
