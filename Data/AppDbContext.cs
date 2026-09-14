@@ -12,4 +12,14 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Chamado> Chamados { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        // Persistimos o enum como texto (ex.: "Aberto") em vez de número,
+        // mantendo compatibilidade com os registros já gravados no SQLite
+        // e a legibilidade direta do valor na tabela.
+        modelBuilder.Entity<Chamado>()
+            .Property(c => c.Status)
+            .HasConversion<string>();
+    }
 }
